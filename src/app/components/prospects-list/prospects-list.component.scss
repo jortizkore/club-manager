@@ -1,0 +1,55 @@
+.content-container {
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+table {
+    width: 100%;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+}
+
+.contact-info mat-icon {
+    font-size: 14px;
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.nuevo {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.contactado {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.interesado {
+    background: #e8f5e9;
+    color: #388e3c;
+}
+
+.convertido {
+    background: #fff3e0;
+    color: #f57c00;
+}

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { FirestoreService } from '../../services/firestore.service';
 import { Grupo } from '../../models/club-manager.models';
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
+    MatCardModule,
     MatDialogModule
   ],
   template: `

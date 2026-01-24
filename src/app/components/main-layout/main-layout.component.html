@@ -1,0 +1,92 @@
+<mat-sidenav-container class="sidenav-container" (backdropClick)="!isHandset$? drawer.close() : null">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-toolbar color="primary">Club Manager</mat-toolbar>
+        <mat-nav-list>
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/dashboard" routerLinkActive="active">
+                <mat-icon matListItemIcon>dashboard</mat-icon>
+                <span matListItemTitle>Dashboard</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/dashboard" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>dashboard</mat-icon>
+                <span matListItemTitle>Dashboard</span>
+            </a>
+            }
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/prospects" routerLinkActive="active">
+                <mat-icon matListItemIcon>person_search</mat-icon>
+                <span matListItemTitle>Prospectos</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/prospects" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>person_search</mat-icon>
+                <span matListItemTitle>Prospectos</span>
+            </a>
+            }
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/subscriptions" routerLinkActive="active">
+                <mat-icon matListItemIcon>card_membership</mat-icon>
+                <span matListItemTitle>Membresías</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/subscriptions" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>card_membership</mat-icon>
+                <span matListItemTitle>Membresías</span>
+            </a>
+            }
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/payments" routerLinkActive="active">
+                <mat-icon matListItemIcon>payments</mat-icon>
+                <span matListItemTitle>Pagos</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/payments" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>payments</mat-icon>
+                <span matListItemTitle>Pagos</span>
+            </a>
+            }
+            <mat-divider></mat-divider>
+            <div mat-subheader>Catálogos</div>
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/groups" routerLinkActive="active">
+                <mat-icon matListItemIcon>groups</mat-icon>
+                <span matListItemTitle>Grupos</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/groups" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>groups</mat-icon>
+                <span matListItemTitle>Grupos</span>
+            </a>
+            }
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/plans" routerLinkActive="active">
+                <mat-icon matListItemIcon>assignment</mat-icon>
+                <span matListItemTitle>Planes</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/plans" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>assignment</mat-icon>
+                <span matListItemTitle>Planes</span>
+            </a>
+            }
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" class="toolbar">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.open()"
+                *ngIf="isHandset$ | async">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>Panel de Gestión</span>
+            <span class="spacer"></span>
+            <button mat-icon-button>
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </mat-toolbar>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

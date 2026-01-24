@@ -1,0 +1,33 @@
+[33m❯[39m Building...
+[32m✔[39m Building...
+[1mInitial chunk files[22m  [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-K6W77Q4H.js[39m    [2m | [22m[2m-[22m                           [2m | [22m[36m707.25 kB[39m[2m | [22m              [36m142.18 kB[39m
+[32mmain-FGP6WSLV.js[39m     [2m | [22m[2mmain[22m                        [2m | [22m[36m188.10 kB[39m[2m | [22m               [36m41.92 kB[39m
+[32mchunk-H7JRE7R5.js[39m    [2m | [22m[2m-[22m                           [2m | [22m[36m164.63 kB[39m[2m | [22m               [36m48.59 kB[39m
+[32mpolyfills-B6TNHZQ6.js[39m[2m | [22m[2mpolyfills[22m                   [2m | [22m [36m34.58 kB[39m[2m | [22m               [36m11.32 kB[39m
+[32mchunk-C4Q6OE4Y.js[39m    [2m | [22m[2m-[22m                           [2m | [22m [36m23.39 kB[39m[2m | [22m                [36m7.60 kB[39m
+[32mchunk-B5MCJTHC.js[39m    [2m | [22m[2m-[22m                           [2m | [22m  [36m4.45 kB[39m[2m | [22m                [36m1.01 kB[39m
+[32mstyles-5INURTSO.css[39m  [2m | [22m[2mstyles[22m                      [2m | [22m  [36m0 bytes[39m[2m | [22m                [36m0 bytes[39m
+
+[1m [22m                    [2m | [22m[1mInitial total[22m               [2m | [22m  [1m[91m1.12 MB[39m[22m[2m | [22m              [1m252.62 kB[22m
+
+[1mLazy chunk files[22m     [2m | [22m[1mNames[22m                       [2m | [22m [1mRaw size[22m[2m | [22m[1mEstimated transfer size[22m
+[32mchunk-HDXZZW3H.js[39m    [2m | [22m[2m-[22m                           [2m | [22m[36m169.53 kB[39m[2m | [22m               [36m31.57 kB[39m
+[32mchunk-5NLMGSL4.js[39m    [2m | [22m[2mbrowser[22m                     [2m | [22m [36m67.60 kB[39m[2m | [22m               [36m17.71 kB[39m
+[32mchunk-6YM42PPW.js[39m    [2m | [22m[2msubscriptions-list-component[22m[2m | [22m [36m66.03 kB[39m[2m | [22m                [36m9.86 kB[39m
+[32mchunk-66L2EQY5.js[39m    [2m | [22m[2m-[22m                           [2m | [22m [36m34.31 kB[39m[2m | [22m                [36m8.48 kB[39m
+[32mchunk-3CBCDNWN.js[39m    [2m | [22m[2m-[22m                           [2m | [22m [36m27.32 kB[39m[2m | [22m                [36m4.87 kB[39m
+[32mchunk-ZCG27XXJ.js[39m    [2m | [22m[2mpayments-list-component[22m     [2m | [22m [36m22.00 kB[39m[2m | [22m                [36m5.89 kB[39m
+[32mchunk-MROERYDL.js[39m    [2m | [22m[2m-[22m                           [2m | [22m [36m10.41 kB[39m[2m | [22m                [36m2.96 kB[39m
+[32mchunk-VTKWAM6N.js[39m    [2m | [22m[2mprospects-list-component[22m    [2m | [22m  [36m7.73 kB[39m[2m | [22m                [36m2.54 kB[39m
+[32mchunk-XIZSE63Q.js[39m    [2m | [22m[2mgrupos-list-component[22m       [2m | [22m  [36m6.79 kB[39m[2m | [22m                [36m2.25 kB[39m
+[32mchunk-Q635QD42.js[39m    [2m | [22m[2mplanes-list-component[22m       [2m | [22m  [36m6.56 kB[39m[2m | [22m                [36m2.23 kB[39m
+
+Application bundle generation failed. [6.172 seconds]
+
+[1m[33m[33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mbundle initial exceeded maximum budget. Budget 500.00 kB was not met by 622.39 kB with a total of 1.12 MB.[0m
+
+[39m[22m
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mbundle initial exceeded maximum budget. Budget 1.00 MB was not met by 122.39 kB with a total of 1.12 MB.[0m
+
+[39m[22m
