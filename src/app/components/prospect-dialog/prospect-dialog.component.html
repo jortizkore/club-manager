@@ -1,0 +1,50 @@
+<h2 mat-dialog-title>{{data.id ? 'Editar' : 'Nuevo'}} Prospecto</h2>
+<mat-dialog-content [formGroup]="form">
+    <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="Nombre">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Segundo Nombre</mat-label>
+            <input matInput formControlName="Nombre2">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Apellido Paterno</mat-label>
+            <input matInput formControlName="ApellidoPaterno">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Apellido Materno</mat-label>
+            <input matInput formControlName="ApellidoMaterno">
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="Telefono">
+            <mat-icon>phone</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="Email" type="email">
+            <mat-icon>email</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="form-row">
+        <mat-form-field appearance="outline">
+            <mat-label>Interés</mat-label>
+            <mat-select formControlName="Interes">
+                <mat-option value="Pesas">Pesas</mat-option>
+                <mat-option value="Cardio">Cardio</mat-option>
+                <mat-option value="Crossfit">Crossfit</mat-option>
+                <mat-option value="Yoga">Yoga</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">Guardar</button>
+</mat-dialog-actions>

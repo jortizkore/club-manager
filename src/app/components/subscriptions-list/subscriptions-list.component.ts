@@ -36,18 +36,18 @@ import { map, switchMap, catchError } from 'rxjs/operators';
       <mat-card>
         <table mat-table [dataSource]="(subscriptions$ | async) || []" class="mat-elevation-z8">
           <ng-container matColumnDef="Prospecto">
-            <th mat-header-cell *thCellDef> Prospecto </th>
-            <td mat-cell *tdCellDef="let element"> {{element.prospectName}} </td>
+            <th mat-header-cell *matHeaderCellDef> Prospecto </th>
+            <td mat-cell *matCellDef="let element"> {{element.prospectName}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Plan">
-            <th mat-header-cell *thCellDef> Plan </th>
-            <td mat-cell *tdCellDef="let element"> {{element.planName}} </td>
+            <th mat-header-cell *matHeaderCellDef> Plan </th>
+            <td mat-cell *matCellDef="let element"> {{element.planName}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Estado">
-            <th mat-header-cell *thCellDef> Estado </th>
-            <td mat-cell *tdCellDef="let element">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element">
               <mat-chip-listbox>
                 <mat-chip *ngIf="element.Estado?.Activo" color="primary" selected>Activo</mat-chip>
                 <mat-chip *ngIf="element.Estado?.PendientePago" color="accent" selected>Pendiente</mat-chip>
@@ -58,8 +58,8 @@ import { map, switchMap, catchError } from 'rxjs/operators';
           </ng-container>
 
           <ng-container matColumnDef="Acciones">
-            <th mat-header-cell *thCellDef> Acciones </th>
-            <td mat-cell *tdCellDef="let element">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
               <button mat-icon-button color="accent" (click)="openDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
@@ -103,8 +103,8 @@ export class SubscriptionsListComponent implements OnInit {
           map(([prospects, plans]) => {
             return subs.map(sub => ({
               ...sub,
-              prospectName: prospects.find(p => p.id === sub.prospectUID)?.Nombre + ' ' + (prospects.find(p => p.id === sub.prospectUID)?.Apellido || '') || 'N/A',
-              planName: plans.find(p => p.id === sub.PlanUID)?.Descripcion || 'N/A'
+              prospectName: prospects.find(p => p.id === sub.prospectUID)?.Nombre + ' ' + (prospects.find(p => p.id === sub.prospectUID)?.ApellidoPaterno || '') || '-',
+              planName: plans.find(p => p.id === sub.PlanUID)?.Descripcion || '-'
             }));
           })
         );

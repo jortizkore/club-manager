@@ -21,59 +21,8 @@ import { Observable } from 'rxjs';
     MatDialogModule,
     MatCardModule
   ],
-  template: `
-    <div class="content-container">
-      <div class="header">
-        <h1 class="mat-h1">Gestión de Planes</h1>
-        <button mat-raised-button color="primary" (click)="openDialog()">
-          <mat-icon>add</mat-icon> Nuevo Plan
-        </button>
-      </div>
-
-      <mat-card>
-        <table mat-table [dataSource]="(planes$ | async) || []" class="mat-elevation-z8">
-          <ng-container matColumnDef="Descripcion">
-            <th mat-header-cell *thCellDef> Descripción </th>
-            <td mat-cell *tdCellDef="let element"> {{element.Descripcion}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Monto">
-            <th mat-header-cell *thCellDef> Monto Mensual </th>
-            <td mat-cell *tdCellDef="let element"> {{element.MontoMensual | currency}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Entrenamiento">
-            <th mat-header-cell *thCellDef> Entrenamiento </th>
-            <td mat-cell *tdCellDef="let element">
-              <mat-icon [color]="element.Detalles?.Entrenamiento ? 'primary' : 'warn'">
-                {{element.Detalles?.Entrenamiento ? 'check_circle' : 'cancel'}}
-              </mat-icon>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Acciones">
-            <th mat-header-cell *thCellDef> Acciones </th>
-            <td mat-cell *tdCellDef="let element">
-              <button mat-icon-button color="accent" (click)="openDialog(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deletePlan(element.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card>
-    </div>
-  `,
-  styles: `
-    .content-container { padding: 0; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    table { width: 100%; }
-  `
+  templateUrl: './planes-list.component.html',
+  styleUrl: './planes-list.component.scss'
 })
 export class PlanesListComponent implements OnInit {
   private firestoreService = inject(FirestoreService);

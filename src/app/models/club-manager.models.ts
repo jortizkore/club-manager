@@ -62,12 +62,22 @@ export interface Subscripcion {
 export interface Prospect {
   id?: string;
   Nombre: string;
-  Apellido: string;
+  Nombre2: string;
+  ApellidoPaterno: string;
+  ApellidoMaterno: string;
   Telefono: string;
   Email: string;
   FechaIngreso: string;
-  Interes: string;
-  Status: string;
+  Status: boolean;
+  Analisis: Analysis[];
+}
+
+export interface Analysis {
+  Fecha: string;
+  AnalisisCognitivo: string;
+  AnalisisFisico: string;
+  AnalisisPsicologico: string;
+  AnalisisComportamiento: string;
 }
 
 export interface User {

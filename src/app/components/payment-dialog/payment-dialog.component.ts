@@ -30,81 +30,8 @@ import { Observable } from 'rxjs';
     MatIconModule,
     MatProgressBarModule
   ],
-  template: `
-    <h2 mat-dialog-title>{{data.id ? 'Editar' : 'Registrar'}} Pago</h2>
-    <mat-dialog-content [formGroup]="form">
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Socio / Prospecto</mat-label>
-          <mat-select formControlName="prospectUID">
-            <mat-option *ngFor="let p of prospects$ | async" [value]="p.id">
-              {{p.Nombre}} {{p.Apellido}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Mes de Pago</mat-label>
-          <input matInput formControlName="MesPago" placeholder="Ej: Enero 2025">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Monto</mat-label>
-          <input matInput type="number" formControlName="montoPago">
-          <span matPrefix>$&nbsp;</span>
-        </mat-form-field>
-      </div>
-
-      <div class="form-row">
-        <mat-form-field appearance="outline">
-          <mat-label>Fecha de Pago</mat-label>
-          <input matInput type="date" formControlName="fechaPago">
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Método de Pago</mat-label>
-          <mat-select formControlName="MetodoDePago">
-            <mat-option value="Efectivo">Efectivo</mat-option>
-            <mat-option value="Transferencia">Transferencia</mat-option>
-            <mat-option value="Tarjeta">Tarjeta</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-
-      <div class="upload-section">
-        <h3>Evidencia de Pago</h3>
-        <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
-        <div class="upload-controls">
-          <button mat-stroked-button type="button" (click)="fileInput.click()" [disabled]="uploading">
-            <mat-icon>upload_file</mat-icon> {{form.get('Evidencia')?.value ? 'Cambiar Imagen' : 'Subir Imagen'}}
-          </button>
-          <span class="file-status" *ngIf="uploading">Subiendo...</span>
-          <mat-icon color="primary" *ngIf="form.get('Evidencia')?.value && !uploading">check_circle</mat-icon>
-        </div>
-        <mat-progress-bar mode="indeterminate" *ngIf="uploading"></mat-progress-bar>
-        <div class="preview" *ngIf="form.get('Evidencia')?.value">
-          <img [src]="form.get('Evidencia')?.value" alt="Evidencia">
-        </div>
-      </div>
-
-      <div class="status-row">
-        <mat-checkbox formControlName="Completado">Pago Completado / Verificado</mat-checkbox>
-      </div>
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button mat-button mat-dialog-close>Cancelar</button>
-      <button mat-raised-button color="primary" [disabled]="form.invalid || uploading" (click)="save()">Guardar</button>
-    </mat-dialog-actions>
-  `,
-  styles: `
-    .form-row { display: flex; gap: 16px; margin-bottom: 8px; }
-    mat-form-field { flex: 1; }
-    .upload-section { margin: 16px 0; padding: 16px; border: 1px dashed #ccc; border-radius: 8px; }
-    .upload-controls { display: flex; align-items: center; gap: 16px; margin-bottom: 8px; }
-    .preview { margin-top: 12px; max-height: 200px; overflow: hidden; border-radius: 4px; }
-    .preview img { width: 100%; height: auto; display: block; }
-    .status-row { margin-top: 16px; }
-  `
+  templateUrl: './payment-dialog.component.html',
+  styleUrl: './payment-dialog.component.scss',
 })
 export class PaymentDialogComponent implements OnInit {
   private fb = inject(FormBuilder);

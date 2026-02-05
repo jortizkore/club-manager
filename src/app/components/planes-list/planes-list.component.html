@@ -1,0 +1,46 @@
+<div class="content-container">
+    <div class="header">
+        <h1 class="mat-h1">Gestión de Planes</h1>
+        <button mat-raised-button color="primary" (click)="openDialog()">
+            <mat-icon>add</mat-icon> Nuevo Plan
+        </button>
+    </div>
+
+    <mat-card>
+        <table mat-table [dataSource]="(planes$ | async) || []" class="mat-elevation-z8">
+            <ng-container matColumnDef="Descripcion">
+                <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Monto">
+                <th mat-header-cell *matHeaderCellDef> Monto Mensual </th>
+                <td mat-cell *matCellDef="let element"> {{element.MontoMensual | currency}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Entrenamiento">
+                <th mat-header-cell *matHeaderCellDef> Entrenamiento </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon [color]="element.Detalles?.Entrenamiento ? 'primary' : 'warn'">
+                        {{element.Detalles?.Entrenamiento ? 'check_circle' : 'cancel'}}
+                    </mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Acciones">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="accent" (click)="openDialog(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deletePlan(element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</div>

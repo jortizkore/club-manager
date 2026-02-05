@@ -33,23 +33,23 @@ import { Observable } from 'rxjs';
       <mat-card>
         <table mat-table [dataSource]="(grupos$ | async) || []" class="mat-elevation-z8">
           <ng-container matColumnDef="Grupo">
-            <th mat-header-cell *thCellDef> Grupo </th>
-            <td mat-cell *tdCellDef="let element"> {{element.Grupo}} </td>
+            <th mat-header-cell *matHeaderCellDef> Grupo </th>
+            <td mat-cell *matCellDef="let element"> {{element.Grupo}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Descripcion">
-            <th mat-header-cell *thCellDef> Descripción </th>
-            <td mat-cell *tdCellDef="let element"> {{element.Descripcion}} </td>
+            <th mat-header-cell *matHeaderCellDef> Descripción </th>
+            <td mat-cell *matCellDef="let element"> {{element.Descripcion}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Horario">
-            <th mat-header-cell *thCellDef> Horario </th>
-            <td mat-cell *tdCellDef="let element"> {{element.HoraInicio}} - {{element.HoraFin}} </td>
+            <th mat-header-cell *matHeaderCellDef> Horario </th>
+            <td mat-cell *matCellDef="let element"> {{element.HoraInicio}} - {{element.HoraFin}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Acciones">
-            <th mat-header-cell *thCellDef> Acciones </th>
-            <td mat-cell *tdCellDef="let element">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
               <button mat-icon-button color="accent" (click)="openDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>

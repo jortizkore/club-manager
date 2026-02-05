@@ -34,28 +34,28 @@ import { map, switchMap, catchError } from 'rxjs/operators';
       <mat-card>
         <table mat-table [dataSource]="(payments$ | async) || []" class="mat-elevation-z8">
           <ng-container matColumnDef="Prospecto">
-            <th mat-header-cell *thCellDef> Socio / Prospecto </th>
-            <td mat-cell *tdCellDef="let element"> {{element.prospectName}} </td>
+            <th mat-header-cell *matHeaderCellDef> Socio / Prospecto </th>
+            <td mat-cell *matCellDef="let element"> {{element.prospectName}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Mes">
-            <th mat-header-cell *thCellDef> Mes </th>
-            <td mat-cell *tdCellDef="let element"> {{element.MesPago}} </td>
+            <th mat-header-cell *matHeaderCellDef> Mes </th>
+            <td mat-cell *matCellDef="let element"> {{element.MesPago}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Monto">
-            <th mat-header-cell *thCellDef> Monto </th>
-            <td mat-cell *tdCellDef="let element"> {{element.montoPago | currency}} </td>
+            <th mat-header-cell *matHeaderCellDef> Monto </th>
+            <td mat-cell *matCellDef="let element"> {{element.montoPago | currency}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Fecha">
-            <th mat-header-cell *thCellDef> Fecha </th>
-            <td mat-cell *tdCellDef="let element"> {{element.fechaPago}} </td>
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaPago}} </td>
           </ng-container>
 
           <ng-container matColumnDef="Estado">
-            <th mat-header-cell *thCellDef> Estatus </th>
-            <td mat-cell *tdCellDef="let element">
+            <th mat-header-cell *matHeaderCellDef> Estatus </th>
+            <td mat-cell *matCellDef="let element">
                <span class="status-badge" [class.completed]="element.Completado">
                 {{element.Completado ? 'Completado' : 'Pendiente'}}
                </span>
@@ -63,8 +63,8 @@ import { map, switchMap, catchError } from 'rxjs/operators';
           </ng-container>
 
           <ng-container matColumnDef="Acciones">
-            <th mat-header-cell *thCellDef> Acciones </th>
-            <td mat-cell *tdCellDef="let element">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
               <button mat-icon-button color="accent" (click)="openDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
@@ -110,7 +110,7 @@ export class PaymentsListComponent implements OnInit {
           map(prospects => {
             return payments.map(p => ({
               ...p,
-              prospectName: prospects.find(pr => pr.id === p.prospectUID)?.Nombre + ' ' + (prospects.find(pr => pr.id === p.prospectUID)?.Apellido || '') || 'N/A'
+              prospectName: prospects.find(pr => pr.id === p.prospectUID)?.Nombre + ' ' + (prospects.find(pr => pr.id === p.prospectUID)?.ApellidoPaterno || '') || ''
             }));
           })
         );
