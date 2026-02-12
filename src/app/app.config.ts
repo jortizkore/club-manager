@@ -9,6 +9,8 @@ import { environment } from './environment.prod';
 
 import { routes } from './app.routes';
 
+import { provideNativeDateAdapter } from '@angular/material/core';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
@@ -17,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    provideAnalytics(() => getAnalytics())
+    provideAnalytics(() => getAnalytics()),
+    provideNativeDateAdapter()
   ]
 };

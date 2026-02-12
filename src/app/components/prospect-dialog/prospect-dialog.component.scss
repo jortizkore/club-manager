@@ -8,3 +8,15 @@
     mat-form-field {
         flex: 1;
     }
+
+    .error-message {
+        position: relative;
+        color: red;
+        font-size: 16px;
+
+        mat-icon {
+            vertical-align: middle;
+        }
+
+
+    }

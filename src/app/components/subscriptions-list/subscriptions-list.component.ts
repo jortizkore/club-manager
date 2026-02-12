@@ -103,7 +103,7 @@ export class SubscriptionsListComponent implements OnInit {
           map(([prospects, plans]) => {
             return subs.map(sub => ({
               ...sub,
-              prospectName: prospects.find(p => p.id === sub.prospectUID)?.Nombre + ' ' + (prospects.find(p => p.id === sub.prospectUID)?.ApellidoPaterno || '') || '-',
+              prospectName: prospects.find(p => p.id === sub.prospectUID)?.Nombre.Nombre + ' ' + (prospects.find(p => p.id === sub.prospectUID)?.Nombre.ApellidoPaterno || '') || '-',
               planName: plans.find(p => p.id === sub.PlanUID)?.Descripcion || '-'
             }));
           })

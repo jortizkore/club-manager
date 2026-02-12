@@ -33,7 +33,7 @@ import { Observable } from 'rxjs';
           <mat-label>Prospecto / Miembro</mat-label>
           <mat-select formControlName="prospectUID">
             <mat-option *ngFor="let p of prospects$ | async" [value]="p.id">
-              {{p.Nombre}} {{p.ApellidoPaterno}}
+              {{p.Nombre.Nombre}} {{p.Nombre.ApellidoPaterno}}
             </mat-option>
           </mat-select>
         </mat-form-field>

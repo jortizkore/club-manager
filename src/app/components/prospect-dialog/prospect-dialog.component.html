@@ -9,6 +9,8 @@
             <mat-label>Segundo Nombre</mat-label>
             <input matInput formControlName="Nombre2">
         </mat-form-field>
+    </div>
+    <div class="form-row">
         <mat-form-field appearance="outline">
             <mat-label>Apellido Paterno</mat-label>
             <input matInput formControlName="ApellidoPaterno">
@@ -22,7 +24,7 @@
     <div class="form-row">
         <mat-form-field appearance="outline">
             <mat-label>Teléfono</mat-label>
-            <input matInput formControlName="Telefono">
+            <input matInput formControlName="Celular">
             <mat-icon>phone</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="outline">
@@ -34,15 +36,15 @@
 
     <div class="form-row">
         <mat-form-field appearance="outline">
-            <mat-label>Interés</mat-label>
-            <mat-select formControlName="Interes">
-                <mat-option value="Pesas">Pesas</mat-option>
-                <mat-option value="Cardio">Cardio</mat-option>
-                <mat-option value="Crossfit">Crossfit</mat-option>
-                <mat-option value="Yoga">Yoga</mat-option>
-            </mat-select>
+            <mat-label>Fecha Nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="FechaNacimiento">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
     </div>
+    <p class="error-message" *ngIf="form.get('Email')?.hasError('email')">
+        <mat-icon>warning</mat-icon> El email es inválido
+    </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancelar</button>

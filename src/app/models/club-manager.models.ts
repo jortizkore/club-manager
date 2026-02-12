@@ -61,15 +61,33 @@ export interface Subscripcion {
 
 export interface Prospect {
   id?: string;
+  Nombre: Nombre;
+  Celular: string;
+  Email: string;
+  FechaNacimiento: string;
+  EstadoDeSubscripcion: boolean;
+  Analisis: Analysis[];
+  TutorUID: string;
+}
+export interface FormProspect {
+  id?: string;
   Nombre: string;
   Nombre2: string;
   ApellidoPaterno: string;
   ApellidoMaterno: string;
-  Telefono: string;
+  Celular: string;
   Email: string;
-  FechaIngreso: string;
-  Status: boolean;
+  FechaNacimiento: string;
+  EstadoDeSubscripcion: boolean;
   Analisis: Analysis[];
+  TutorUID: string;
+}
+
+export interface Nombre {
+  Nombre: string;
+  Nombre2: string;
+  ApellidoPaterno: string;
+  ApellidoMaterno: string;
 }
 
 export interface Analysis {

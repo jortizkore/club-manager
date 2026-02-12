@@ -110,7 +110,7 @@ export class PaymentsListComponent implements OnInit {
           map(prospects => {
             return payments.map(p => ({
               ...p,
-              prospectName: prospects.find(pr => pr.id === p.prospectUID)?.Nombre + ' ' + (prospects.find(pr => pr.id === p.prospectUID)?.ApellidoPaterno || '') || ''
+              prospectName: prospects.find(pr => pr.id === p.prospectUID)?.Nombre.Nombre + ' ' + (prospects.find(pr => pr.id === p.prospectUID)?.Nombre.ApellidoPaterno || '') || ''
             }));
           })
         );

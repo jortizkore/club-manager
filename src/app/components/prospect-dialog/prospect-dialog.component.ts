@@ -7,8 +7,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Prospect } from '../../models/club-manager.models';
-import { FirestoreService } from '../../services/firestore.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { FormProspect, Prospect } from '../../models/club-manager.models';
 
 @Component({
   selector: 'app-prospect-dialog',
@@ -22,37 +23,50 @@ import { FirestoreService } from '../../services/firestore.service';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   templateUrl: './prospect-dialog.component.html',
   styleUrl: './prospect-dialog.component.scss',
 })
 export class ProspectDialogComponent {
   private fb = inject(FormBuilder);
-  private firestoreService = inject(FirestoreService);
   private dialogRef = inject(MatDialogRef<ProspectDialogComponent>);
 
   form: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Prospect) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: FormProspect) {
     this.form = this.fb.group({
       id: [data.id],
       Nombre: [data.Nombre || '', Validators.required],
       Nombre2: [data.Nombre2 || ''],
       ApellidoPaterno: [data.ApellidoPaterno || '', Validators.required],
       ApellidoMaterno: [data.ApellidoMaterno || ''],
-      Telefono: [data.Telefono || '', Validators.required],
-      Email: [data.Email || '', [Validators.required, Validators.email]],
-      Status: [data.Status || false, Validators.required]
+      Celular: [data.Celular || '',],
+      Email: [data.Email || '', [Validators.email]],
+      FechaNacimiento: [data.FechaNacimiento || "", Validators.required]
     });
   }
 
   save() {
     if (this.form.valid) {
-      debugger;
-      const prospect: Prospect = this.form.value;
-      this.firestoreService.addDoc('prospect', prospect);
-      this.dialogRef.close(this.form.value);
+      const ProspectToSave: Prospect = {
+        Nombre: {
+          Nombre: this.form.value.Nombre,
+          Nombre2: this.form.value.Nombre2,
+          ApellidoPaterno: this.form.value.ApellidoPaterno,
+          ApellidoMaterno: this.form.value.ApellidoMaterno
+        },
+        Celular: this.form.value.Celular,
+        Email: this.form.value.Email,
+        EstadoDeSubscripcion: false,
+        FechaNacimiento: this.form.value.FechaNacimiento,
+        Analisis: [],
+        TutorUID: ""
+
+      };
+      this.dialogRef.close(ProspectToSave);
     }
   }
 }

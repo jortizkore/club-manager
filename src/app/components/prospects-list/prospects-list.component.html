@@ -7,7 +7,7 @@
     </div>
 
     <mat-card>
-        <table mat-table [dataSource]="(prospects$ | async) || []" class="mat-elevation-z8">
+        <table mat-table [dataSource]="(prospects) || []" class="mat-elevation-z8">
             <ng-container matColumnDef="Nombre">
                 <th mat-header-cell *matHeaderCellDef> Nombre </th>
                 <td mat-cell *matCellDef="let element"> {{element.Nombre}} {{element.Apellido}} </td>

@@ -25,14 +25,15 @@ export class FirestoreService {
     constructor() { }
 
     getCollection<T>(path: string, ...constraints: QueryConstraint[]): Observable<T[]> {
+        debugger
         const colRef = collection(this.firestore, path);
-        const q = query(colRef, ...constraints);
-        return collectionData(q, { idField: 'id' }) as Observable<T[]>;
+        const q = constraints.length > 0 ? query(colRef, ...constraints) : colRef;
+        return collectionData(q, { idField: 'id' } as any) as Observable<T[]>;
     }
 
     getDoc<T>(path: string, id: string): Observable<T | undefined> {
         const docRef = doc(this.firestore, `${path}/${id}`);
-        return docData(docRef, { idField: 'id' }) as Observable<T | undefined>;
+        return docData(docRef, { idField: 'id' } as any) as Observable<T | undefined>;
     }
 
     addDoc(path: string, data: any): Promise<DocumentReference> {
