@@ -37,12 +37,14 @@ export class ProspectsListComponent implements OnInit {
 
   ngOnInit() {
     //this.prospects$ = this.firestoreService.getCollection<Prospect>('prospect');
-    debugger;
     this.subs.push(this.firestoreService.getCollection<Prospect>('prospect')
       .subscribe(_prospects => {
         console.log('prospects', _prospects);
         this.prospects = _prospects;
-      })
+      },
+        error => {
+          console.error(error);
+        })
     );
   }
 
@@ -55,7 +57,6 @@ export class ProspectsListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.id) {
-          debugger;
           this.firestoreService.updateDoc('prospect', result.id, result).then(() => {
             this.alertsService.success('Prospecto actualizado correctamente');
           }).catch((error) => {
