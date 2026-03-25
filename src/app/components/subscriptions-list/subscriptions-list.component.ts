@@ -7,10 +7,12 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { FirestoreService } from '../../services/firestore.service';
-import { Subscripcion, Prospect, Plan } from '../../models/club-manager.models';
+import { Prospect, Plan, Subscripcion } from '../../models/club-manager.models';
+import { Subscription } from 'rxjs';
 import { SubscriptionDialogComponent } from '../subscription-dialog/subscription-dialog.component';
-import { Observable, forkJoin, of } from 'rxjs';
+import { Observable, forkJoin, of, combineLatest } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
+import { AlertsService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-subscriptions-list',
@@ -24,68 +26,16 @@ import { map, switchMap, catchError } from 'rxjs/operators';
     MatCardModule,
     MatChipsModule
   ],
-  template: `
-    <div class="content-container">
-      <div class="header">
-        <h1 class="mat-h1">Gestión de Membresías</h1>
-        <button mat-raised-button color="primary" (click)="openDialog()">
-          <mat-icon>card_membership</mat-icon> Nueva Membresía
-        </button>
-      </div>
-
-      <mat-card>
-        <table mat-table [dataSource]="(subscriptions$ | async) || []" class="mat-elevation-z8">
-          <ng-container matColumnDef="Prospecto">
-            <th mat-header-cell *matHeaderCellDef> Prospecto </th>
-            <td mat-cell *matCellDef="let element"> {{element.prospectName}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Plan">
-            <th mat-header-cell *matHeaderCellDef> Plan </th>
-            <td mat-cell *matCellDef="let element"> {{element.planName}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Estado">
-            <th mat-header-cell *matHeaderCellDef> Estado </th>
-            <td mat-cell *matCellDef="let element">
-              <mat-chip-listbox>
-                <mat-chip *ngIf="element.Estado?.Activo" color="primary" selected>Activo</mat-chip>
-                <mat-chip *ngIf="element.Estado?.PendientePago" color="accent" selected>Pendiente</mat-chip>
-                <mat-chip *ngIf="element.Estado?.Suspendido" color="warn" selected>Suspendido</mat-chip>
-                <mat-chip *ngIf="element.Estado?.Cancelado">Cancelado</mat-chip>
-              </mat-chip-listbox>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Acciones">
-            <th mat-header-cell *matHeaderCellDef> Acciones </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="openDialog(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteSubscription(element.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card>
-    </div>
-  `,
-  styles: `
-    .content-container { padding: 0; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    table { width: 100%; }
-  `
+  templateUrl: './subscriptions-list.component.html',
+  styleUrl: './subscription-list.component.scss',
 })
 export class SubscriptionsListComponent implements OnInit {
   private firestoreService = inject(FirestoreService);
   private dialog = inject(MatDialog);
-
-  subscriptions$: Observable<any[]> = new Observable<any[]>();
+  private alertsService = inject(AlertsService);
+  subscriptionList: Subscripcion[] = [];
+  subscriptionListToDisplay: SubscripcionItem[] = [];
+  subs: Subscription[] = [];
   displayedColumns: string[] = ['Prospecto', 'Plan', 'Estado', 'Acciones'];
 
   ngOnInit() {
@@ -93,26 +43,25 @@ export class SubscriptionsListComponent implements OnInit {
   }
 
   loadSubscriptions() {
-    this.subscriptions$ = this.firestoreService.getCollection<Subscripcion>('Subscripciones').pipe(
-      switchMap(subs => {
-        if (subs.length === 0) return of([]);
-        return forkJoin([
-          this.firestoreService.getCollection<Prospect>('prospect'),
-          this.firestoreService.getCollection<Plan>('Planes')
-        ]).pipe(
-          map(([prospects, plans]) => {
-            return subs.map(sub => ({
-              ...sub,
-              prospectName: prospects.find(p => p.id === sub.prospectUID)?.Nombre.Nombre + ' ' + (prospects.find(p => p.id === sub.prospectUID)?.Nombre.ApellidoPaterno || '') || '-',
-              planName: plans.find(p => p.id === sub.PlanUID)?.Descripcion || '-'
-            }));
-          })
-        );
-      }),
-      catchError(err => {
-        console.error('Error loading subscriptions', err);
-        return of([]);
-      })
+    this.subs.push(
+      combineLatest({
+        _subs: this.firestoreService.getCollection<Subscripcion>('Subscripciones'),
+        prospects: this.firestoreService.getCollection<Prospect>('prospect'),
+        plans: this.firestoreService.getCollection<Plan>('Planes')
+      }).pipe(
+        map(({ _subs, prospects, plans }) => {
+          this.subscriptionListToDisplay = _subs.map(sub => ({
+            ...sub,
+            prospectName: prospects.find(p => p.id === sub.prospectUID)?.Nombre.Nombre || '-',
+            planName: plans.find(p => p.id === sub.PlanUID)?.Descripcion || '-'
+          }));
+        }),
+        catchError(error => {
+          this.alertsService.error('Error al cargar las membresías: ' + error.message);
+          console.error(error);
+          return of(null);
+        })
+      ).subscribe()
     );
   }
 
@@ -134,8 +83,27 @@ export class SubscriptionsListComponent implements OnInit {
   }
 
   deleteSubscription(id: string): void {
-    if (confirm('¿Está seguro de eliminar esta membresía?')) {
-      this.firestoreService.deleteDoc('Subscripciones', id);
-    }
+    this.alertsService.question('¿Está seguro de eliminar esta membresía?').then(result => {
+      if (result.isConfirmed) {
+        this.firestoreService.deleteDoc('Subscripciones', id);
+      } else {
+        this.alertsService.info('Membresía no eliminada');
+      }
+    });
   }
+}
+
+interface SubscripcionItem {
+  id?: string;
+  PlanUID: string;
+  prospectUID: string;
+  Estado: {
+    Activo: boolean;
+    Cancelado: boolean;
+    PendientePago: boolean;
+    Suspendido: boolean;
+  };
+  Observaciones: string[];
+  prospectName: string;
+  planName: string;
 }

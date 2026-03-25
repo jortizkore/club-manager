@@ -8,8 +8,9 @@ import { MatCardModule } from '@angular/material/card';
 import { FirestoreService } from '../../services/firestore.service';
 import { Prospect } from '../../models/club-manager.models';
 import { ProspectDialogComponent } from '../prospect-dialog/prospect-dialog.component';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AlertsService } from '../../services/alerts.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-prospects-list',
@@ -20,7 +21,8 @@ import { AlertsService } from '../../services/alerts.service';
     MatButtonModule,
     MatIconModule,
     MatDialogModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule
   ],
   templateUrl: './prospects-list.component.html',
   styleUrls: ['./prospects-list.component.scss']
@@ -33,16 +35,20 @@ export class ProspectsListComponent implements OnInit {
 
   //prospects$: Observable<Prospect[]> = new Observable<Prospect[]>();
   prospects: Prospect[] = [];
-  displayedColumns: string[] = ['Nombre', 'Contacto', 'Interes', 'Status', 'Acciones'];
+  displayedColumns: string[] = ['Nombre', 'Contacto', 'Acciones'];
 
   ngOnInit() {
     //this.prospects$ = this.firestoreService.getCollection<Prospect>('prospect');
+    this.loadProspects();
+  }
+
+  loadProspects() {
     this.subs.push(this.firestoreService.getCollection<Prospect>('prospect')
       .subscribe(_prospects => {
-        console.log('prospects', _prospects);
         this.prospects = _prospects;
       },
         error => {
+          this.alertsService.error('Error al cargar los prospectos: ' + error.message);
           console.error(error);
         })
     );
@@ -78,8 +84,15 @@ export class ProspectsListComponent implements OnInit {
   }
 
   deleteProspect(id: string): void {
-    if (confirm('¿Está seguro de eliminar este prospecto?')) {
-      this.firestoreService.deleteDoc('prospect', id);
-    }
+    this.alertsService.question('¿Está seguro de eliminar este prospecto?').then((result) => {
+      if (result.isConfirmed) {
+        this.firestoreService.deleteDoc('prospect', id).then(() => {
+          this.alertsService.success('Prospecto eliminado correctamente');
+        }).catch((error) => {
+          this.alertsService.error('Error al eliminar el prospecto: ');
+          console.error(error);
+        });
+      }
+    });
   }
 }

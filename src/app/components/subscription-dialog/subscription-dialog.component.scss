@@ -1,0 +1,19 @@
+.form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+}
+
+mat-form-field {
+    flex: 1;
+}
+
+.estado-container {
+    margin-top: 16px;
+}
+
+.chips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}

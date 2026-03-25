@@ -1,0 +1,49 @@
+<div class="content-container">
+    <div class="header">
+        <h1 class="mat-h1">Gestión de Membresías</h1>
+        <button mat-raised-button color="primary" (click)="openDialog()">
+            <mat-icon>card_membership</mat-icon> Nueva Membresía
+        </button>
+    </div>
+
+    <mat-card>
+        <table mat-table [dataSource]="subscriptionListToDisplay" class="mat-elevation-z8">
+            <ng-container matColumnDef="Prospecto">
+                <th mat-header-cell *matHeaderCellDef> Prospecto </th>
+                <td mat-cell *matCellDef="let element"> {{element.prospectName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Plan">
+                <th mat-header-cell *matHeaderCellDef> Plan </th>
+                <td mat-cell *matCellDef="let element"> {{element.planName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Estado">
+                <th mat-header-cell *matHeaderCellDef> Estado </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-chip-listbox>
+                        <mat-chip *ngIf="element.Estado?.Activo" color="primary" selected>Activo</mat-chip>
+                        <mat-chip *ngIf="element.Estado?.PendientePago" color="accent" selected>Pendiente</mat-chip>
+                        <mat-chip *ngIf="element.Estado?.Suspendido" color="warn" selected>Suspendido</mat-chip>
+                        <mat-chip *ngIf="element.Estado?.Cancelado">Cancelado</mat-chip>
+                    </mat-chip-listbox>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Acciones">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="accent" (click)="openDialog(element)">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="deleteSubscription(element.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </mat-card>
+</div>

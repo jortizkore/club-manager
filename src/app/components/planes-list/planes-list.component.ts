@@ -9,6 +9,7 @@ import { FirestoreService } from '../../services/firestore.service';
 import { Plan } from '../../models/club-manager.models';
 import { PlanDialogComponent } from '../plan-dialog/plan-dialog.component';
 import { Observable } from 'rxjs';
+import { AlertsService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-planes-list',
@@ -27,6 +28,7 @@ import { Observable } from 'rxjs';
 export class PlanesListComponent implements OnInit {
   private firestoreService = inject(FirestoreService);
   private dialog = inject(MatDialog);
+  private alertsService = inject(AlertsService);
 
   planes$: Observable<Plan[]> = new Observable<Plan[]>();
   displayedColumns: string[] = ['Descripcion', 'Monto', 'Entrenamiento', 'Acciones'];
@@ -53,8 +55,12 @@ export class PlanesListComponent implements OnInit {
   }
 
   deletePlan(id: string): void {
-    if (confirm('¿Está seguro de eliminar este plan?')) {
-      this.firestoreService.deleteDoc('Planes', id);
-    }
+    this.alertsService.question('¿Está seguro de eliminar este plan?').then(result => {
+      if (result.isConfirmed) {
+        this.firestoreService.deleteDoc('Planes', id);
+      } else {
+        this.alertsService.info('Plan no eliminado');
+      }
+    });
   }
 }

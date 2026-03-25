@@ -10,6 +10,7 @@ import { Pago, Prospect } from '../../models/club-manager.models';
 import { PaymentDialogComponent } from '../payment-dialog/payment-dialog.component';
 import { Observable, forkJoin, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
+import { AlertsService } from '../../services/alerts.service';
 
 @Component({
   selector: 'app-payments-list',
@@ -94,6 +95,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 export class PaymentsListComponent implements OnInit {
   private firestoreService = inject(FirestoreService);
   private dialog = inject(MatDialog);
+  private alertsService = inject(AlertsService);
 
   payments$: Observable<any[]> = new Observable<any[]>();
   displayedColumns: string[] = ['Prospecto', 'Mes', 'Monto', 'Fecha', 'Estado', 'Acciones'];
@@ -140,8 +142,12 @@ export class PaymentsListComponent implements OnInit {
   }
 
   deletePayment(id: string): void {
-    if (confirm('¿Está seguro de eliminar este registro de pago?')) {
-      this.firestoreService.deleteDoc('Pagos', id);
-    }
+    this.alertsService.question('¿Está seguro de eliminar este registro de pago?').then(result => {
+      if (result.isConfirmed) {
+        this.firestoreService.deleteDoc('Pagos', id);
+      } else {
+        this.alertsService.info('Registro de pago no eliminado');
+      }
+    });
   }
 }

@@ -36,13 +36,17 @@ export class ProspectDialogComponent {
 
   form: FormGroup;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: FormProspect) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+    if (data?.FechaNacimiento) {
+      //convertir timestamp a fecha
+      data.FechaNacimiento = new Date(data.FechaNacimiento.seconds * 1000);
+    }
     this.form = this.fb.group({
       id: [data.id],
-      Nombre: [data.Nombre || '', Validators.required],
-      Nombre2: [data.Nombre2 || ''],
-      ApellidoPaterno: [data.ApellidoPaterno || '', Validators.required],
-      ApellidoMaterno: [data.ApellidoMaterno || ''],
+      Nombre: [data.Nombre?.Nombre || '', Validators.required],
+      Nombre2: [data.Nombre?.Nombre2 || ''],
+      ApellidoPaterno: [data.Nombre?.ApellidoPaterno || '', Validators.required],
+      ApellidoMaterno: [data.Nombre?.ApellidoMaterno || ''],
       Celular: [data.Celular || '',],
       Email: [data.Email || '', [Validators.email]],
       FechaNacimiento: [data.FechaNacimiento || "", Validators.required]
@@ -52,6 +56,7 @@ export class ProspectDialogComponent {
   save() {
     if (this.form.valid) {
       const ProspectToSave: Prospect = {
+        id: this.form.value.id,
         Nombre: {
           Nombre: this.form.value.Nombre,
           Nombre2: this.form.value.Nombre2,
