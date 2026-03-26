@@ -38,6 +38,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "sweetalert2",
+              "crypto-js"
+            ],
             "outputPath": "dist/club-manager",
             "index": "src/index.html",
             "browser": "src/main.ts",

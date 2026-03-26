@@ -1,0 +1,26 @@
+<div class="register-container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <mat-card class="register-card" style="width: 400px; padding: 20px;">
+        <mat-card-header>
+            <mat-card-title>Registro de Usuario</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="margin-top: 20px;">
+            <form (ngSubmit)="onSubmit()">
+                <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 20px;">
+                    <mat-label>Club ID</mat-label>
+                    <input matInput type="text" [(ngModel)]="clubID" name="clubID" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 20px;">
+                    <mat-label>Usuario (Login)</mat-label>
+                    <input matInput type="text" [(ngModel)]="login" name="login" required>
+                </mat-form-field>
+                <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 20px;">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput type="password" [(ngModel)]="password" name="password" required>
+                </mat-form-field>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button mat-raised-button color="primary" type="submit" style="width: 100%;">Registrar</button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

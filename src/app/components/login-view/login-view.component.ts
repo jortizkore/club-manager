@@ -5,14 +5,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-view',
   imports: [FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, MatButtonModule],
   providers: [AuthService],
   templateUrl: './login-view.component.html',
-  styleUrl: './login-view.component.css'
+  styleUrl: './login-view.component.scss'
 })
 export class LoginViewComponent {
   user: string = '';

@@ -14,8 +14,13 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatGridListModule
   ],
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+
+  ngOnInit() {
+
+  }
+
 
 }

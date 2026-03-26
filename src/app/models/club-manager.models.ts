@@ -18,7 +18,7 @@ export interface Grupo {
 export interface Login {
   id?: string;
   login: string;
-  password?: string;
+  password: string;
   ultimoLogin: string; // ISO format or string "2025-01-06 00:00:00"
   usuarioUID: string;
 }
