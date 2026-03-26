@@ -54,6 +54,10 @@ export class ProspectsListComponent implements OnInit {
     );
   }
 
+  ngOnDestroy() {
+    this.subs.forEach(sub => sub.unsubscribe());
+  }
+
   openDialog(prospect?: Prospect): void {
     const dialogRef = this.dialog.open(ProspectDialogComponent, {
       width: '600px',
