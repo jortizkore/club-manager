@@ -1,0 +1,27 @@
+  .content-container {
+      padding: 0;
+  }
+
+  .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+  }
+
+  table {
+      width: 100%;
+  }
+
+  .status-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      background: #ffebee;
+      color: #c62828;
+  }
+
+  .status-badge.completed {
+      background: #e8f5e9;
+      color: #2e7d32;
+  }

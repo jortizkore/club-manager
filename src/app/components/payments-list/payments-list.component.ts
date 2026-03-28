@@ -23,74 +23,8 @@ import { AlertsService } from '../../services/alerts.service';
     MatDialogModule,
     MatCardModule
   ],
-  template: `
-    <div class="content-container">
-      <div class="header">
-        <h1 class="mat-h1">Registro de Pagos</h1>
-        <button mat-raised-button color="primary" (click)="openDialog()">
-          <mat-icon>add_payment</mat-icon> Registrar Pago
-        </button>
-      </div>
-
-      <mat-card>
-        <table mat-table [dataSource]="(payments$ | async) || []" class="mat-elevation-z8">
-          <ng-container matColumnDef="Prospecto">
-            <th mat-header-cell *matHeaderCellDef> Socio / Prospecto </th>
-            <td mat-cell *matCellDef="let element"> {{element.prospectName}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Mes">
-            <th mat-header-cell *matHeaderCellDef> Mes </th>
-            <td mat-cell *matCellDef="let element"> {{element.MesPago}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Monto">
-            <th mat-header-cell *matHeaderCellDef> Monto </th>
-            <td mat-cell *matCellDef="let element"> {{element.montoPago | currency}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Fecha">
-            <th mat-header-cell *matHeaderCellDef> Fecha </th>
-            <td mat-cell *matCellDef="let element"> {{element.fechaPago}} </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Estado">
-            <th mat-header-cell *matHeaderCellDef> Estatus </th>
-            <td mat-cell *matCellDef="let element">
-               <span class="status-badge" [class.completed]="element.Completado">
-                {{element.Completado ? 'Completado' : 'Pendiente'}}
-               </span>
-            </td>
-          </ng-container>
-
-          <ng-container matColumnDef="Acciones">
-            <th mat-header-cell *matHeaderCellDef> Acciones </th>
-            <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="accent" (click)="openDialog(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deletePayment(element.id)">
-                <mat-icon>delete</mat-icon>
-              </button>
-              <a mat-icon-button *ngIf="element.Evidencia" [href]="element.Evidencia" target="_blank" color="primary">
-                <mat-icon>visibility</mat-icon>
-              </a>
-            </td>
-          </ng-container>
-
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </mat-card>
-    </div>
-  `,
-  styles: `
-    .content-container { padding: 0; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-    table { width: 100%; }
-    .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 0.75rem; background: #ffebee; color: #c62828; }
-    .status-badge.completed { background: #e8f5e9; color: #2e7d32; }
-  `
+  templateUrl: './payments-list.component.html',
+  styleUrl: './payments-list.component.scss'
 })
 export class PaymentsListComponent implements OnInit {
   private firestoreService = inject(FirestoreService);

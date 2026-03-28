@@ -71,6 +71,28 @@
                 <span matListItemTitle>Planes</span>
             </a>
             }
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/roles" routerLinkActive="active">
+                <mat-icon matListItemIcon>assignment</mat-icon>
+                <span matListItemTitle>Roles</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/roles" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>assignment</mat-icon>
+                <span matListItemTitle>Roles</span>
+            </a>
+            }
+            @if (!(isHandset$ | async)) {
+            <a mat-list-item routerLink="/permissions" routerLinkActive="active">
+                <mat-icon matListItemIcon>assignment</mat-icon>
+                <span matListItemTitle>Permisos</span>
+            </a>
+            }@else {
+            <a mat-list-item routerLink="/permissions" routerLinkActive="active" (click)="drawer.close()">
+                <mat-icon matListItemIcon>assignment</mat-icon>
+                <span matListItemTitle>Permisos</span>
+            </a>
+            }
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

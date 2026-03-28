@@ -1,0 +1,63 @@
+<div class="permissions-container">
+  <div class="header">
+    <h1 class="mat-h1">Gestión de Permisos</h1>
+  </div>
+
+  <mat-card class="form-card">
+    <mat-card-header>
+      <mat-card-title>{{ editingId ? 'Editar Permiso' : 'Nuevo Permiso' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="permissionForm" (ngSubmit)="savePermission()" class="permission-form">
+        <mat-form-field appearance="fill">
+          <mat-label>ID de Permiso</mat-label>
+          <input matInput formControlName="IdPermiso" placeholder="Ej: PERM_READ" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre del Permiso</mat-label>
+          <input matInput formControlName="NombrePermiso" placeholder="Ej: Leer registros" />
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="cancelEdit()" *ngIf="editingId">Cancelar</button>
+          <button mat-raised-button color="primary" type="submit">Guardar</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <table mat-table [dataSource]="(permissions$ | async) || []" class="mat-elevation-z8">
+      <ng-container matColumnDef="IdPermiso">
+        <th mat-header-cell *matHeaderCellDef> ID Permiso </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="NombrePermiso">
+        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+        <td mat-cell *matCellDef="let element"> {{element.NombrePermiso}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="accent" (click)="editPermission(element)" type="button">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deletePermission(element)" type="button">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Placeholder when empty -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="3">No se encontraron permisos</td>
+      </tr>
+    </table>
+  </mat-card>
+</div>

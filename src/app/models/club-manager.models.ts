@@ -108,12 +108,15 @@ export interface User {
 }
 
 export interface Role {
+  id?: string;
   RoleDescription: string;
   RoleValue: string;
-  RoleID: string;
+  RoleID: string; // no needed, do not create again something like this, remove once have time
+  permissions: Permission[];
 }
 
 export interface Permission {
+  id?: string;
   NombrePermiso: string;
-  IdPermiso: string;
+  IdPermiso: string; // no needed, do not create again something like this, remove once have time
 }

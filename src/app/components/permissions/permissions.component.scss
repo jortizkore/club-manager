@@ -1,0 +1,41 @@
+.permissions-container {
+  padding: 0;
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+}
+
+.form-card {
+  margin-bottom: 24px;
+
+  .permission-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    margin-top: 16px;
+
+    mat-form-field {
+      flex: 1 1 200px;
+    }
+
+    .full-width {
+      flex: 2 1 400px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: flex-end;
+      width: 100%;
+    }
+  }
+}
+
+table {
+  width: 100%;
+}

@@ -21,6 +21,8 @@ export const routes: Routes = [
             { path: 'prospects', loadComponent: () => import('./components/prospects-list/prospects-list.component').then(c => c.ProspectsListComponent) },
             { path: 'subscriptions', loadComponent: () => import('./components/subscriptions-list/subscriptions-list.component').then(c => c.SubscriptionsListComponent) },
             { path: 'payments', loadComponent: () => import('./components/payments-list/payments-list.component').then(c => c.PaymentsListComponent) },
+            { path: 'roles', loadComponent: () => import('./components/roles/roles.component').then(c => c.RolesComponent) },
+            { path: 'permissions', loadComponent: () => import('./components/permissions/permissions.component').then(c => c.PermissionsComponent) },
         ]
     }
 ];
