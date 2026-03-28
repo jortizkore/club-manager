@@ -21,6 +21,7 @@ export interface Login {
   password: string;
   ultimoLogin: string; // ISO format or string "2025-01-06 00:00:00"
   usuarioUID: string;
+  clubID: string;
 }
 
 export interface Pago {
@@ -104,4 +105,15 @@ export interface User {
   DisplayName: string;
   PhotoURL?: string;
   Role: string;
+}
+
+export interface Role {
+  RoleDescription: string;
+  RoleValue: string;
+  RoleID: string;
+}
+
+export interface Permission {
+  NombrePermiso: string;
+  IdPermiso: string;
 }

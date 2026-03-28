@@ -6,15 +6,18 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
   imports: [
     CommonModule,
+    MatMenuModule,
     RouterOutlet,
     RouterLink,
     RouterLinkActive,
@@ -29,10 +32,15 @@ import { Observable } from 'rxjs';
 })
 export class MainLayoutComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private authService = inject(AuthService);
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay(1)
     );
+
+  logout() {
+    this.authService.logout();
+  }
 }
