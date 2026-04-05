@@ -1,0 +1,51 @@
+<h2 mat-dialog-title>Registrar Nuevo Usuario</h2>
+<mat-dialog-content>
+  <form [formGroup]="userForm" class="dialog-form-layout">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre Completo</mat-label>
+      <input matInput formControlName="Nombre" placeholder="Ej. Juan Perez">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Documento de Identidad</mat-label>
+      <input matInput formControlName="DocumentoDeIdentidad">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rol</mat-label>
+      <mat-select formControlName="RoleId">
+        <mat-option *ngFor="let role of roles" [value]="role.id">
+          {{ role.RoleDescription }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <h3 class="contact-header">Información de Contacto</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="Email" type="email">
+    </mat-form-field>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="flex-field">
+        <mat-label>Celular</mat-label>
+        <input matInput formControlName="Celular">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="flex-field">
+        <mat-label>Teléfono Fijo</mat-label>
+        <input matInput formControlName="Telefono">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="Direccion" placeholder="Separada por comas">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-flat-button color="primary" [disabled]="userForm.invalid" (click)="save()">Guardar</button>
+</mat-dialog-actions>

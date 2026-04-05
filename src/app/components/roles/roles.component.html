@@ -42,6 +42,12 @@
   </mat-card>
 
   <mat-card>
+    <div class="search-bar">
+      <mat-form-field appearance="fill">
+        <mat-label>Buscar</mat-label>
+        <input matInput #search placeholder="Ej: Admin" (keyup)="searchRole(search.value)" />
+      </mat-form-field>
+    </div>
     <table mat-table [dataSource]="(roles$ | async) || []" class="mat-elevation-z8">
       <ng-container matColumnDef="RoleID">
         <th mat-header-cell *matHeaderCellDef> ID </th>

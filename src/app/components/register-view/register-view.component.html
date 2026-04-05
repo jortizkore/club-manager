@@ -1,9 +1,17 @@
 <div class="register-container" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
     <mat-card class="register-card" style="width: 400px; padding: 20px;">
         <mat-card-header>
-            <mat-card-title>Registro de Usuario</mat-card-title>
+            <mat-card-title>Registro de Usuario y Login</mat-card-title>
         </mat-card-header>
         <mat-card-content style="margin-top: 20px;">
+            <div style="margin-bottom: 20px;">
+                <p *ngIf="!usuarioUID" style="color: #666;">Primero, registre los datos del usuario.</p>
+                <p *ngIf="usuarioUID" style="color: green; font-weight: bold;">Usuario registrado correctamente.</p>
+                <button mat-stroked-button color="primary" type="button" style="width: 100%;" (click)="openUserRegistrationDialog()">
+                    {{ usuarioUID ? 'Modificar Usuario Registrado' : '1. Registrar Usuario' }}
+                </button>
+            </div>
+
             <form (ngSubmit)="onSubmit()">
                 <mat-form-field appearance="fill" style="width: 100%; margin-bottom: 20px;">
                     <mat-label>Club ID</mat-label>
@@ -18,7 +26,9 @@
                     <input matInput type="password" [(ngModel)]="password" name="password" required>
                 </mat-form-field>
                 <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-                    <button mat-raised-button color="primary" type="submit" style="width: 100%;">Registrar</button>
+                    <button mat-raised-button color="primary" type="submit" style="width: 100%;" [disabled]="!usuarioUID">
+                        2. Crear Login
+                    </button>
                 </div>
             </form>
         </mat-card-content>

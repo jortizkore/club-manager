@@ -9,7 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FirestoreService } from '../../services/firestore.service';
 import { AlertsService } from '../../services/alerts.service';
 import { Permission, Role } from '../../models/club-manager.models';
@@ -45,6 +45,10 @@ export class RolesComponent implements OnInit {
   roleForm: FormGroup;
   editingRoleId: string | null = null;
   selectedPermissions: Permission[] = [];
+
+  comparePermissions(o1: Permission, o2: Permission): boolean {
+    return o1 && o2 ? o1.id === o2.id : o1 === o2;
+  }
 
   constructor() {
     this.roleForm = this.fb.group({
@@ -110,5 +114,16 @@ export class RolesComponent implements OnInit {
         this.alertsService.error('No se pudo eliminar el rol');
       }
     }
+  }
+
+  searchRole(searchValue: string): void {
+    if (!searchValue) {
+      this.roles$ = this.firestoreService.getCollection<Role>('Roles');
+      return;
+    }
+    this.roles$ = this.firestoreService.getCollection<Role>('Roles').pipe(
+      map((roles: Role[]) => roles.filter(role => role.RoleDescription.toLowerCase()
+        .includes(searchValue.toLowerCase())))
+    );
   }
 }

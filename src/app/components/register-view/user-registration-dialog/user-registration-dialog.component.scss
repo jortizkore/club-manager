@@ -1,0 +1,22 @@
+.dialog-form-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.contact-header {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.flex-field {
+    flex: 1;
+}

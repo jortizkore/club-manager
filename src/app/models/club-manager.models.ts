@@ -100,17 +100,21 @@ export interface Analysis {
 }
 
 export interface User {
-  uid: string;
-  Email: string;
-  DisplayName: string;
-  PhotoURL?: string;
-  Role: string;
+  Nombre: string;
+  DocumentoDeIdentidad: string;
+  RoleId: string;
+  informacionContacto: {
+    Celular: string;
+    Email: string;
+    Direccion: string[];
+    Telefono: string;
+  }
 }
 
 export interface Role {
   id?: string;
   RoleDescription: string;
-  RoleValue: string;
+  RoleValue: number;
   RoleID: string; // no needed, do not create again something like this, remove once have time
   permissions: Permission[];
 }

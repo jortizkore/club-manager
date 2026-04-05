@@ -28,6 +28,12 @@
   </mat-card>
 
   <mat-card>
+    <div class="search-bar">
+      <mat-form-field appearance="fill">
+        <mat-label>Buscar</mat-label>
+        <input matInput #search placeholder="Ej: Admin" (keyup)="searchPermission(search.value)" />
+      </mat-form-field>
+    </div>
     <table mat-table [dataSource]="(permissions$ | async) || []" class="mat-elevation-z8">
       <ng-container matColumnDef="IdPermiso">
         <th mat-header-cell *matHeaderCellDef> ID Permiso </th>

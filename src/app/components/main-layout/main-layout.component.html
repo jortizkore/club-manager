@@ -14,7 +14,7 @@
                 <span matListItemTitle>Dashboard</span>
             </a>
             }
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerProspectos') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/prospects" routerLinkActive="active">
                 <mat-icon matListItemIcon>person_search</mat-icon>
                 <span matListItemTitle>Prospectos</span>
@@ -25,7 +25,7 @@
                 <span matListItemTitle>Prospectos</span>
             </a>
             }
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerMembresías') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/subscriptions" routerLinkActive="active">
                 <mat-icon matListItemIcon>card_membership</mat-icon>
                 <span matListItemTitle>Membresías</span>
@@ -36,7 +36,7 @@
                 <span matListItemTitle>Membresías</span>
             </a>
             }
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerPagos') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/payments" routerLinkActive="active">
                 <mat-icon matListItemIcon>payments</mat-icon>
                 <span matListItemTitle>Pagos</span>
@@ -49,7 +49,7 @@
             }
             <mat-divider></mat-divider>
             <div mat-subheader>Catálogos</div>
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerGrupos') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/groups" routerLinkActive="active">
                 <mat-icon matListItemIcon>groups</mat-icon>
                 <span matListItemTitle>Grupos</span>
@@ -60,7 +60,7 @@
                 <span matListItemTitle>Grupos</span>
             </a>
             }
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerPlanes') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/plans" routerLinkActive="active">
                 <mat-icon matListItemIcon>assignment</mat-icon>
                 <span matListItemTitle>Planes</span>
@@ -71,7 +71,7 @@
                 <span matListItemTitle>Planes</span>
             </a>
             }
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerRoles') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/roles" routerLinkActive="active">
                 <mat-icon matListItemIcon>assignment</mat-icon>
                 <span matListItemTitle>Roles</span>
@@ -82,7 +82,7 @@
                 <span matListItemTitle>Roles</span>
             </a>
             }
-            @if (!(isHandset$ | async)) {
+            @if (userHasPermission('VerPermisos') && !(isHandset$ | async)) {
             <a mat-list-item routerLink="/permissions" routerLinkActive="active">
                 <mat-icon matListItemIcon>assignment</mat-icon>
                 <span matListItemTitle>Permisos</span>

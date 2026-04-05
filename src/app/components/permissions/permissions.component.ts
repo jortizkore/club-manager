@@ -7,10 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Observable } from 'rxjs';
+import { firstValueFrom, map, Observable } from 'rxjs';
 import { FirestoreService } from '../../services/firestore.service';
 import { AlertsService } from '../../services/alerts.service';
-import { Permission } from '../../models/club-manager.models';
+import { Permission, Role } from '../../models/club-manager.models';
 
 @Component({
   selector: 'app-permissions',
@@ -66,6 +66,7 @@ export class PermissionsComponent implements OnInit {
       } else {
         await this.firestoreService.addDoc('Permissions', payload);
         this.alertsService.success('Permiso creado exitosamente');
+        this.autoAddPermissionToAdmin();
       }
       this.cancelEdit();
     } catch (error) {
@@ -99,4 +100,33 @@ export class PermissionsComponent implements OnInit {
       }
     }
   }
+
+  async autoAddPermissionToAdmin(): Promise<void> {
+    try {
+      // Tomamos la suscripción activa y obtenemos un único valor (un listado) de Firestore.
+
+      const roles = await firstValueFrom(this.firestoreService.getCollection<Role>('Roles'));
+      const adminRole = roles.find(role => role.RoleValue === 1);
+
+      if (adminRole && adminRole.id) {
+
+        const allPermissions = await firstValueFrom(this.firestoreService.getCollection<Permission>('Permissions'));
+        await this.firestoreService.updateDoc('Roles', adminRole.id, { permissions: allPermissions });
+      }
+    } catch (error) {
+      console.error('Error auto actualizando permisos del rol admin: ', error);
+    }
+  }
+
+  searchPermission(searchValue: string): void {
+    if (!searchValue) {
+      this.permissions$ = this.firestoreService.getCollection<Permission>('Permissions');
+      return;
+    }
+    this.permissions$ = this.firestoreService.getCollection<Permission>('Permissions').pipe(
+      map((permissions: Permission[]) => permissions.filter(permission => permission.NombrePermiso.toLowerCase()
+        .includes(searchValue.toLowerCase())))
+    );
+  }
+
 }

@@ -43,4 +43,8 @@ export class MainLayoutComponent {
   logout() {
     this.authService.logout();
   }
+
+  userHasPermission(permissionName: string): boolean {
+    return this.authService.userHasPermission(permissionName);
+  }
 }
